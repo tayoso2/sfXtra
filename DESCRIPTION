@@ -1,0 +1,21 @@
+Package: sfXtra
+Type: Package
+Title: Advanced sf functions
+Version: 0.1.0
+Authors@R: c(
+	person("Tayo", "Ososanya", email = "tayo.ososanya@arcadisgen.com", role = c("aut", "cre")),
+	person("David", "Smith", email = "david.smith@arcadisgen.com", role = c("aut"))
+	)
+Description: The sfXtra family was created to solve advanced sf tasks. This includes get elevation, 
+    find nearest and more functions which we be added in due time.
+Depends: R (>= 3.6.3)
+License: Open-source license
+Encoding: UTF-8
+LazyData: true
+Imports:
+    dplyr,
+    elevatr,
+    magrittr,
+    units,
+    sf    
+RoxygenNote: 7.1.0
