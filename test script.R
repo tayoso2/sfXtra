@@ -7,6 +7,10 @@ library(sfXtra)
 
 # load the data
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
+# check to ensure the above worked
+getwd()
+
 ele1_load <- readRDS("test/ele1.rds")
 blockage_sf_load <- readRDS("test/blockage_sf.rds")
 pipe_sf_load <- readRDS("test/pipe_sf.rds")
