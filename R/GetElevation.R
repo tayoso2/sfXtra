@@ -27,8 +27,8 @@ GetElevation <- function(x,
                           Latitude = Latitude,
                           unit = "meters",
                           src = "epqs") {
-  # Accepts an asset with unique asset identifier, longitude and latitude to determine calculate elevation. 
-  #
+  # Accepts an asset with unique asset identifier, longitude and latitude to calculate elevation regardless
+  # of NAs in Latitude, Longitude columns.
   #
   # Returns:
   #   The same dataframe with all rows and an additional "elevation" column. 
