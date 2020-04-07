@@ -3,6 +3,7 @@
 ## Summary
 
 'GetElevation' takes your R Object consiting of assetid, latitude and longitude. Most importantly, the function removes rows of latitude and longitude with NA, calculates the elevation of the other rows and merges them all back. The output is your input dataframe and the elevation column.
+
 'FindNearest' accepts two sf objects x and y and determines the nearest feature in y for every feature in x. Then it returns a datatable containing all rows from x with the corresponding nearest feature from y. A column representing the distance between the features is also included.
 
 
