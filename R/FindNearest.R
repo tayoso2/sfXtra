@@ -42,7 +42,7 @@ FindNearest <- function(x, y, y.name = "y") {
   nearest.features <- y[nearest.rows,]
   nearest.features$distance <- nearest.distance
   nearest.features$rowguid <- x$rowguid
-  nearest.features$Reference.Number <- x$Reference.Number
+  
   # Remove geometries
   st_geometry(x) <- NULL
   st_geometry(nearest.features) <- NULL
