@@ -5,7 +5,7 @@
 #' @param x An sf object containing the features for which you want find the nearest features in y
 #' @param y An sf object containing features to be assigned to x
 #' @param y.name Characters prepended to the y features in the returned datatable
-#' @return Returns a dataframe containing all rows from x with the corresponding nearest
+#' @return Returns a datatable containing all rows from x with the corresponding nearest
 #' feature from y. A column representing the distance between the features is
 #' also included. Note that this object contains no geometry.
 #' @import sf
@@ -25,6 +25,9 @@ FindNearest <- function(x, y, y.name = "y") {
     y <- st_transform(y, st_crs(x))
   }
   
+  # Get rownumber of x
+  x$rowguid <- seq.int(nrow(x))
+  
   # Compute distance matrix
   dist.matrix <- st_distance(x, y)
   
@@ -38,11 +41,13 @@ FindNearest <- function(x, y, y.name = "y") {
   distance.units <- deparse_unit(nearest.distance)
   message(paste0("Distance unit is: ", distance.units))
   
-  # Build data table of nearest features
+  # Build data table of nearest features and add row index
   nearest.features <- y[nearest.rows,]
   nearest.features$distance <- nearest.distance
-  nearest.features$rowguid <- x$rowguid
-  
+  nearest.features$x.rowguid <- x$rowguid
+  nearest.features$index <- rownames(nearest.features)
+  nearest.features$index <- sub("\\..*", "", nearest.features$index)
+
   # Remove geometries
   st_geometry(x) <- NULL
   st_geometry(nearest.features) <- NULL
@@ -55,4 +60,3 @@ FindNearest <- function(x, y, y.name = "y") {
   output <- nearest.features
   return(output)
 }
-
