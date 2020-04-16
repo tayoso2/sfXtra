@@ -23,8 +23,8 @@
 #' @export
 GetElevation <- function(x,
                           AssetID = "AssetID",
-                          Longitude = Longitude,
-                          Latitude = Latitude,
+                          Longitude = "Longitude",
+                          Latitude = "Latitude",
                           unit = "meters",
                           src = "epqs") {
   # Accepts an asset with unique asset identifier, longitude and latitude to calculate elevation regardless
@@ -40,6 +40,8 @@ GetElevation <- function(x,
     
     # convert unique id column name to standard "AssetID". Select the important colnames
     colnames(x)[which(names(x) == AssetID)] <- "AssetID"
+    colnames(x)[which(names(x) == Longitude)] <- "Longitude"
+    colnames(x)[which(names(x) == Latitude)] <- "Latitude"
     y <- select(x, AssetID, Longitude, Latitude) %>% 
       mutate(Longitude = as.numeric(Longitude), Latitude = as.numeric(Latitude))
     
@@ -62,6 +64,8 @@ GetElevation <- function(x,
     
     # revert unique id column name
     colnames(output)[which(names(output) == "AssetID")] <- AssetID
+    colnames(x)[which(names(x) == "Longitude")] <- Longitude
+    colnames(x)[which(names(x) == "Latitude")] <- Latitude
     return(output)
   }
 }
