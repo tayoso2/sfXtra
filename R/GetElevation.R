@@ -34,39 +34,43 @@ GetElevation <- function(x,
   #   The same dataframe with all rows and an additional "elevation" column. 
   #   This column represents the point elevation using x(long) and y(lat) as input.
   #   Note that this object contains no geometry.
-  
-  # extract the rows for which altitude cannot be calculated
-  if (length(x$Longitude) && length(x$Latitude) > 0) {
     
     # convert unique id column name to standard "AssetID". Select the important colnames
     colnames(x)[which(names(x) == AssetID)] <- "AssetID"
     colnames(x)[which(names(x) == Longitude)] <- "Longitude"
     colnames(x)[which(names(x) == Latitude)] <- "Latitude"
-    y <- select(x, AssetID, Longitude, Latitude) %>% 
-      mutate(Longitude = as.numeric(Longitude), Latitude = as.numeric(Latitude))
     
-    # use this to exclude rows without longitude and latitude
-    ele_na <- x %>% filter(is.na(Longitude)) %>% filter(is.na(Latitude)) %>% select(AssetID, Longitude, Latitude)
-    ele <- x %>% anti_join(ele_na, by = colnames(ele_na)[1])
+    # extract the rows for which altitude cannot be calculated
     
-    #set crs to global 4326
-    ele <- st_as_sf(ele, coords = c("Longitude", "Latitude"), crs = 4326)
-    prj_dd <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
+    if (isTRUE(mean(x$Latitude, na.rm = T)) < 180 & (mean(x$Longitude, na.rm = T) < 180)) {
+      
+      y <- select(x, AssetID, Longitude, Latitude) %>% 
+        mutate(Longitude = as.numeric(Longitude), Latitude = as.numeric(Latitude))
+      
+      # use this to exclude rows without longitude and latitude
+      ele_na <- x %>% filter(is.na(Longitude)) %>% filter(is.na(Latitude)) %>% select(AssetID, Longitude, Latitude)
+      ele <- x %>% anti_join(ele_na, by = colnames(ele_na)[1])
+      
+      #set crs to global 4326
+      ele <- st_as_sf(ele, coords = c("Longitude", "Latitude"), crs = 4326)
+      prj_dd <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
+      
+      # get_elev_point calculates the altitude
+      elevate <-
+        get_elev_point(ele,unit = "meters",prj = prj_dd, src = src)
+      output <- data.frame(elevate)
+      output$elev_units <- NULL; elevate <- NULL; ele_na <- NULL; output$geometry <- NULL
+      
+      # merge both the new altitudes and original data using AssetID
+      output <- inner_join(output, y, by = colnames(y)[1])
+      # revert unique id column name and other column names
+      colnames(output)[which(names(output) == "AssetID")] <- AssetID
+      colnames(x)[which(names(x) == "Longitude")] <- Longitude
+      colnames(x)[which(names(x) == "Latitude")] <- Latitude
+      return(output)
     
-    # get_elev_point calculates the altitude
-    elevate <-
-      get_elev_point(ele,unit = "meters",prj = prj_dd, src = src)
-    output <- data.frame(elevate)
-    output$elev_units <- NULL; elevate <- NULL; ele_na <- NULL; output$geometry <- NULL
-    
-    # merge both the new altitudes and original data using AssetID
-    output <- inner_join(output, y, by = colnames(y)[1])
-    
-    # revert unique id column name
-    colnames(output)[which(names(output) == "AssetID")] <- AssetID
-    colnames(x)[which(names(x) == "Longitude")] <- Longitude
-    colnames(x)[which(names(x) == "Latitude")] <- Latitude
-    return(output)
+  } else {
+    message("Error: Convert to WGS84 longlat")
   }
 }
 
