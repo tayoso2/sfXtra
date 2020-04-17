@@ -65,8 +65,8 @@ GetElevation <- function(x,
       output <- inner_join(output, y, by = colnames(y)[1])
       # revert unique id column name and other column names
       colnames(output)[which(names(output) == "AssetID")] <- AssetID
-      colnames(x)[which(names(x) == "Longitude")] <- Longitude
-      colnames(x)[which(names(x) == "Latitude")] <- Latitude
+      colnames(output)[which(names(output) == "Longitude")] <- Longitude
+      colnames(output)[which(names(output) == "Latitude")] <- Latitude
       return(output)
     
   } else {
