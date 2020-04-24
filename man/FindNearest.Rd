@@ -14,7 +14,7 @@ FindNearest(x, y, y.name = "y")
 \item{y.name}{Characters prepended to the y features in the returned datatable}
 }
 \value{
-Returns a datatable containing all rows from x with the corresponding nearest
+Returns a dataframe containing all rows from x with the corresponding nearest
 feature from y. A column representing the distance between the features is
 also included. Note that this object contains no geometry.
 }

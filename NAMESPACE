@@ -2,8 +2,11 @@
 
 export(FindNearest)
 export(GetElevation)
+export(east_north_to_long_lat)
+export(long_lat_to_east_north)
 import(dplyr)
 import(elevatr)
 import(magrittr)
 import(sf)
+import(sp)
 import(units)

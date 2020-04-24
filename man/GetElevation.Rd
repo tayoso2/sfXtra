@@ -7,8 +7,8 @@
 GetElevation(
   x,
   AssetID = "AssetID",
-  Longitude = Longitude,
-  Latitude = Latitude,
+  Longitude = "Longitude",
+  Latitude = "Latitude",
   unit = "meters",
   src = "epqs"
 )
