@@ -1,8 +1,12 @@
 cred <- git2r::cred_user_pass(rstudioapi::askForPassword("username"), 
                               rstudioapi::askForPassword("Password"))
 
+<<<<<<< HEAD
 devtools::install_git("https://gitlab.com/tayoso2/sfxtra.git",credentials = cred)
 #devtools::install_git("https://gitlab.com/arcadis-code-repository/arcadisgen/sfxtra.git",credentials = cred)
+=======
+devtools::install_git("https://gitlab.com/arcadis-code-repository/arcadisgen/sfxtra.git",credentials = cred)
+>>>>>>> aadf6c711830e148d99b4e1dc636293708c6cda1
 
 library(sfXtra)
 

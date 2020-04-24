@@ -29,6 +29,9 @@ FindNearest <- function(x, y, y.name = "y") {
     y <- st_transform(y, st_crs(x))
   }
   
+  # Get rownumber of x
+  x$rowguid <- seq.int(nrow(x))
+  
   # Compute distance matrix
   dist.matrix <- st_distance(x, y)
   
@@ -42,11 +45,13 @@ FindNearest <- function(x, y, y.name = "y") {
   distance.units <- deparse_unit(nearest.distance)
   message(paste0("Distance unit is: ", distance.units))
   
-  # Build data table of nearest features
+  # Build data table of nearest features and add row index
   nearest.features <- y[nearest.rows,]
   nearest.features$distance <- nearest.distance
-  nearest.features$rowguid <- x$rowguid
-  nearest.features$Reference.Number <- x$Reference.Number
+  nearest.features$x.rowguid <- x$rowguid
+  nearest.features$index <- rownames(nearest.features)
+  nearest.features$index <- sub("\\..*", "", nearest.features$index)
+
   # Remove geometries
   st_geometry(x) <- NULL
   st_geometry(nearest.features) <- NULL
@@ -59,4 +64,3 @@ FindNearest <- function(x, y, y.name = "y") {
   output <- nearest.features
   return(output)
 }
-
