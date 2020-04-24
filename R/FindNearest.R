@@ -1,3 +1,7 @@
+.onAttach <- function(libname, pkgname) {
+  packageStartupMessage("You have loaded sfXtra ------------------------------------>>")
+}
+
 #' Load 2 sf objects, x and y
 #'
 #' Accepts two sf objects x and y and determines the nearest feature in y for
