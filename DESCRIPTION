@@ -18,5 +18,6 @@ Imports:
     magrittr,
     units,
     sp,
-    sf    
+    sf,
+    rgdal    
 RoxygenNote: 7.1.0

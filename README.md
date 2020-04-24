@@ -36,7 +36,7 @@ Download the repo and run "test script.R"
 * Tayo Ososanya (tayo.ososanya@arcadisgen.com)
 
 ### **Requirements**
-* R installation and R packages (dplyr,elevatr,magrittr,units,sf, sp)
+* R installation and R packages (dplyr,elevatr,magrittr,units,sf,sp,rgdal)
 
 
 --------------------------------------------------------------------------------------

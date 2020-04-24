@@ -10,6 +10,7 @@
 #' @param crs Default is 27700 for United Kingdom
 #' @return Returns a dataframe with easting and northing converted to longitude and latitude
 #' @import sp
+#' @import rgdal
 #' @export
 east_north_to_long_lat <- function(easting, northing, crs = 27700) {
   wgs84 = paste0("+init=epsg:",crs)
