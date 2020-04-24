@@ -8,7 +8,7 @@ Authors@R: c(
 	)
 Description: The sfXtra family was created to solve advanced sf tasks. This includes get elevation, 
     find nearest and convert coordinates. More incoming...
-Depends: R (>= 3.6.3)
+Depends: R (>= 3.6.1)
 License: Open-source license
 Encoding: UTF-8
 LazyData: true
