@@ -7,7 +7,7 @@ Authors@R: c(
 	person("David", "Smith", email = "david.smith@arcadisgen.com", role = c("aut"))
 	)
 Description: The sfXtra family was created to solve advanced sf tasks. This includes get elevation, 
-    find nearest and more functions which we be added in due time.
+    find nearest and convert coordinates. More incoming...
 Depends: R (>= 3.6.3)
 License: Open-source license
 Encoding: UTF-8
@@ -17,5 +17,6 @@ Imports:
     elevatr,
     magrittr,
     units,
+    sp,
     sf    
 RoxygenNote: 7.1.0
