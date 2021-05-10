@@ -1,0 +1,28 @@
+Package: sfXtra
+Type: Package
+Title: Advanced sf functions
+Version: 1.0.1
+Authors@R: c(
+	person("Tayo", "Ososanya", email = "tayo.ososanya@arcadisgen.com", role = c("aut", "cre")),
+	person("David", "Smith", email = "david.smith@arcadisgen.com", role = c("aut"))
+	)
+Description: The sfXtra family was created to solve advanced sf problems. This includes get elevation, 
+    find nearest, convert coordinates, break_linestrings, distance calculator etc. Feel free to raise an issue you face 
+	using this package. Also, you can add your friendly geo-spatial functions to make this library more robust.
+Depends: R (>= 3.6.1)
+License: Open-source license
+Encoding: UTF-8
+LazyData: true
+Imports:
+    dplyr,
+	plyr,
+    elevatr,
+    magrittr,
+    units,
+    sp,
+    sf,
+    rgdal,
+    devtools
+Suggests: polylineSplitter
+Additional_repositories: https://github.com/JMT2080AD/polylineSplitter
+RoxygenNote: 7.1.0
