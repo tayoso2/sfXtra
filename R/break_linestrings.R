@@ -1,4 +1,5 @@
 
+
 #' Load an sf object with l feature consisting of a multilinestring geometry. Used with break_to_smallest()
 #'
 #' This function loads a sf object with 1 feature, the active geometry "multilinestring"
@@ -13,22 +14,24 @@
 #' @import magrittr
 #' @export
 
-break_one_line <- function(line, geom = "geometry", crs = 27700){
-
+break_one_line <- function(line, geom = "geometry", crs = 27700) {
   # cast the geometry from multiline to points
   points <- st_cast(st_geometry(line), "POINT")
 
   # pair the points and cast back to linestrings
   n <- length(points) - 1
-  x <- lapply(X = 1:n, FUN = function(p) {
-    x_pair <- st_combine(c(points[p], points[p + 1]))
-    x <- st_cast(x_pair, "LINESTRING")
-  })
-  for(i in 1:length(x)){
-    if(i == 1){
+  x <- lapply(
+    X = 1:n,
+    FUN = function(p) {
+      x_pair <- st_combine(c(points[p], points[p + 1]))
+      x <- st_cast(x_pair, "LINESTRING")
+    }
+  )
+  for (i in 1:length(x)) {
+    if (i == 1) {
       x2 <- x[[i]]
     } else{
-      x2 <- c(x2,x[[i]])
+      x2 <- c(x2, x[[i]])
     }
   }
 
@@ -39,13 +42,13 @@ break_one_line <- function(line, geom = "geometry", crs = 27700){
 
   # add on the length
   x2$length_m <- st_length(x2$geometry)
-  x2$length_m <- round(as.numeric(x2$length_m),4)
+  x2$length_m <- round(as.numeric(x2$length_m), 4)
 
   # remove old geometries
-  line[,c("geometry")] <- NULL
+  line[, c("geometry")] <- NULL
 
   # add on the original columns
-  x2 <- merge(as.data.frame(x2),line, by = NULL)
+  x2 <- merge(as.data.frame(x2), line, by = NULL)
   return(x2)
 }
 
@@ -60,19 +63,17 @@ break_one_line <- function(line, geom = "geometry", crs = 27700){
 #' @export
 
 break_to_smallest <- function(lines, messaging = 5) {
-
   # iterate through all rows in the sf object using break_one_line()
   for (i in 1:nrow(lines)) {
-
     # message for progress
     if (i %% (nrow(lines) / messaging) == 0) {
       message(paste0((i / nrow(lines)) * 100), "% at ", Sys.time())
     }
 
     if (i == 1) {
-      lines_2 <- break_one_line(lines[i, ])
+      lines_2 <- break_one_line(lines[i,])
     } else{
-      lines_2 <- plyr::rbind.fill(break_one_line(lines[i, ]), lines_2)
+      lines_2 <- plyr::rbind.fill(break_one_line(lines[i,]), lines_2)
     }
   }
   return(lines_2)
@@ -82,12 +83,13 @@ break_to_smallest <- function(lines, messaging = 5) {
 
 #' Calculate the number of times to split/divide each linestring.
 #'
-#' This function loads an R object with the active geometry "linestring" and breaks each of these multilines to many lines.
+#' This function loads an R object with the active geometry "linestring" and a column denoting the
+#' minimum value to split large lines with.
 #' @param x An sf object or sf dataframe consisting of a column denoting the length of geometry
 #' @param max_length Maximum length for each linestring. Can also be a floating value.
 #' @param length_col The field with the length variable
 #' @param messaging Progress indicator displaying in Percentages
-#' @return Returns the same R object with the addition of "splits_in_meters" columns
+#' @return Returns the same R object with the addition of "splits_in_meters" column
 #' @import sf
 #' @export
 
@@ -96,12 +98,9 @@ split_lines_using_rules <-
            max_length = 20,
            length_col = "length_m",
            messaging = 5) {
-
     # nullify the active geometry
     if ("sf" %in% class(x)) {
-      message(paste0(
-        "Nullifying the active geometry"
-      ))
+      message(paste0("Nullifying the active geometry"))
       st_geometry(x) <- NULL
     }
     for (i in 1:nrow(x)) {
@@ -135,7 +134,6 @@ split_lines_using_rules <-
 #' @export
 
 fix_xymax <- function(x) {
-
   # Transform x to an sf object if necessary
   if ("sf" %in% class(x)) {
     message(paste0("You have loaded an sf object"))
@@ -163,12 +161,12 @@ fix_xymax <- function(x) {
 
 #' Split the geometry using the splits_number column
 #'
-#' This function loads an sf object with the active geometry "linestring" and breaks each of these multilines to many lines.
+#' This function loads an sf object with the active geometry "linestring" and breaks each of these large lines to many lines.
 #' @param x An sf object or sf dataframe with a length column (length_col), splits_number, and a unique idenifier.
 #' @param length_col The field with the continuous "length" variable which denotes the length of the geometry.
 #' @param splits_number The field with the length(in meters) to split the geometry with.
 #' @param uid This column represents the unique identifier to identify the geometries which have or have not been split.
-#' @return Returns the same R object with the addition of "splits_in_meters" columns
+#' @return Returns a dataframe with the addition of "new_length" column
 #' @import dplyr
 #' @import magrittr
 #' @import polylineSplitter
@@ -186,7 +184,6 @@ split_my_linestrings <-
 
     # iterate over all the rows
     for (i in 1:nrow(x)) {
-
       # transform each feature to a spatial object
       x1_sp <- as_Spatial(x$geometry[i])
 
@@ -209,7 +206,8 @@ split_my_linestrings <-
 
       # ensure the crs is unchanged
       crs_27700 <- sp::CRS(SRS_string = "EPSG:27700")
-      x1_splitted_sf <- st_transform(x1_splitted_sf, crs = crs_27700)
+      x1_splitted_sf <-
+        st_transform(x1_splitted_sf, crs = crs_27700)
 
       if (i == 1) {
         out <- x1_splitted_sf
@@ -218,12 +216,12 @@ split_my_linestrings <-
       }
     }
 
-  # add a length column, exclude really small lengths
-  out <- out %>%
-    st_sf() %>% st_set_crs(27700) %>%
-    dplyr::mutate(new_length = st_length(.),
-           new_length = as.numeric(new_length)) %>%
-    dplyr::filter(new_length > 0.01)
+    # add a length column, exclude really small lengths
+    out <- out %>%
+      st_sf() %>% st_set_crs(27700) %>%
+      dplyr::mutate(new_length = st_length(.),
+                    new_length = as.numeric(new_length)) %>%
+      dplyr::filter(new_length > 0.01)
 
-  return(as.data.frame(out))
-}
+    return(as.data.frame(out))
+  }
