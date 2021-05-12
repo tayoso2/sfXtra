@@ -2,7 +2,7 @@
 % Please edit documentation in R/break_linestrings.R
 \name{break_one_line}
 \alias{break_one_line}
-\title{Load an sf object with l feature consisting of a multilinestring geometry. Used with break_to_smallest()}
+\title{Load an sf object with l feature consisting of a multilinestring geometry. This function is used in break_to_smallest()}
 \usage{
 break_one_line(line, geom = "geometry", crs = 27700)
 }

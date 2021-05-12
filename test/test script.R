@@ -1,7 +1,9 @@
 
+# install dependencies for *split_my_linestrings()* function --------------
+devtools::install_github("jmt2080ad/polylineSplitter")
+
 # install from git ---------------------------------------------------------
-devtools::install_git('git@github.com:tayoso2/sfXtra.git',
-                      credentials = git2r::cred_ssh_key())
+devtools::install_github("tayoso2/sfXtra")
 
 # load the libraries -------------------------------------------------------
 library(sfXtra)

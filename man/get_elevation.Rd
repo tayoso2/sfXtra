@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_elevation.R
 \name{get_elevation}
 \alias{get_elevation}
-\title{Load a dataframe}
+\title{Get the elevation from a dataframe with longitude and latitude.}
 \usage{
 get_elevation(
   x,

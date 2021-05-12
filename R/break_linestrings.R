@@ -60,7 +60,7 @@ break_one_line <- function(line, geom = "geometry", crs = 27700) {
 #' @param lines An sf object or sf dataframe
 #' @param messaging Progress indicator displaying in Percentages.
 #' @return Returns the same sf object with the addition of line geometries gotten from the broken larger linestrings
-#' @import plyr
+#' @importFrom plyr rbind.fill
 #' @export
 
 break_to_smallest <- function(lines, messaging = 5) {

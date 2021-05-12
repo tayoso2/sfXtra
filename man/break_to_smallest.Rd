@@ -12,8 +12,8 @@ break_to_smallest(lines, messaging = 5)
 \item{messaging}{Progress indicator displaying in Percentages.}
 }
 \value{
-Returns the same sf object with the addition of line geometries gotten from the broken multilinestrings
+Returns the same sf object with the addition of line geometries gotten from the broken larger linestrings
 }
 \description{
-This function loads an sf object with the active geometry "linestring" and breaks each of these multilines to many lines.
+This function loads an sf object with the active geometry "linestring" and breaks each of these larger lines to many lines.
 }

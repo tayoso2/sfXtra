@@ -17,8 +17,14 @@ There are a variety of methods for installing packages directly from github. You
 You can try running the following code from within R Studio:
 
 ```R
-devtools::install_git('git@github.com:tayoso2/sfXtra.git',
-                      credentials = git2r::cred_ssh_key())
+# install devtools libraries from cran
+install.packages("devtools")
+
+# install dependencies for *split_my_linestrings()* function
+devtools::install_github("jmt2080ad/polylineSplitter")
+
+# install sfXtra package
+devtools::install_github("tayoso2/sfXtra.git")
 ```
 
 
@@ -38,7 +44,7 @@ Download the repo and run "test script.R"
 * Tayo Ososanya (tayo.ososanya@arcadisgen.com)
 
 ### **Requirements**
-* R installation and R packages (dplyr,elevatr,magrittr,units,sf,sp,rgdal, plyr, polylineSplitter)
+* R installation and R packages (dplyr,elevatr,magrittr,units,sf,sp,rgdal,plyr,polylineSplitter)
 
 
 --------------------------------------------------------------------------------------

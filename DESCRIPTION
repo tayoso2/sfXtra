@@ -25,4 +25,4 @@ Imports:
     devtools
 Suggests: polylineSplitter
 Additional_repositories: https://github.com/JMT2080AD/polylineSplitter
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1

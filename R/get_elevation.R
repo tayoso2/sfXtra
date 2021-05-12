@@ -2,7 +2,7 @@
   packageStartupMessage("You have loaded sfXtra ------------------------------------>>")
 }
 
-#' Load a dataframe
+#' Get the elevation from a dataframe with longitude and latitude.
 #'
 #' This function loads a dataframe. It accepts an R object with unique asset
 #' identifier (default set as "AssetID"), longitude and latitude to calculate elevation.

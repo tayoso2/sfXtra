@@ -21,8 +21,9 @@ split_lines_using_rules(
 \item{messaging}{Progress indicator displaying in Percentages}
 }
 \value{
-Returns the same R object with the addition of "splits_in_meters" columns
+Returns the same R object with the addition of "splits_in_meters" column
 }
 \description{
-This function loads an R object with the active geometry "linestring" and breaks each of these multilines to many lines.
+This function loads an R object with the active geometry "linestring" and a column denoting the
+minimum value to split large lines with.
 }

@@ -9,7 +9,7 @@
 #' @param centroid Default is TRUE. If TRUE, convert x_geom and y_geom to centroids
 #' @return Returns the sf object with additional column, geom_distance_m in meters
 #' @import sf
-#' @import plyr
+#' @importFrom plyr rbind.fill
 #' @import lwgeom
 #' @export
 

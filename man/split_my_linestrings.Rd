@@ -21,8 +21,8 @@ split_my_linestrings(
 \item{uid}{This column represents the unique identifier to identify the geometries which have or have not been split.}
 }
 \value{
-Returns the same R object with the addition of "splits_in_meters" columns
+Returns a dataframe with the addition of "new_length" column
 }
 \description{
-This function loads an sf object with the active geometry "linestring" and breaks each of these multilines to many lines.
+This function loads an sf object with the active geometry "linestring" and breaks each of these large lines to many lines.
 }
