@@ -12,9 +12,9 @@ There are new functions as well added to this package which have not been summar
 
 ### Installation
 
-There are a variety of methods for installing packages directly from gitlab. You may want to research these and find the most appropriate for you. 
+There are a variety of methods for installing packages directly from github. You may want to research these and find the most appropriate for you. 
 
-You can try running the following code from within R Studio (assuming you know your gitlab username and password and your account has access to the repo):
+You can try running the following code from within R Studio:
 
 ```R
 devtools::install_git('git@github.com:tayoso2/sfXtra.git',
@@ -38,7 +38,7 @@ Download the repo and run "test script.R"
 * Tayo Ososanya (tayo.ososanya@arcadisgen.com)
 
 ### **Requirements**
-* R installation and R packages (dplyr,elevatr,magrittr,units,sf,sp,rgdal)
+* R installation and R packages (dplyr,elevatr,magrittr,units,sf,sp,rgdal, plyr, polylineSplitter)
 
 
 --------------------------------------------------------------------------------------
