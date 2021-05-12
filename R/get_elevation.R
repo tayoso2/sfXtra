@@ -20,8 +20,9 @@
 #' @import elevatr
 #' @import magrittr
 #' @import dplyr
-#' @import rgdal
 #' @export
+
+
 get_elevation <- function(x,
                           AssetID = "AssetID",
                           Longitude = "Longitude",
@@ -56,14 +57,14 @@ get_elevation <- function(x,
 
     #set crs to global 4326
     ele <-
-      st_as_sf(ele,
+      sf::st_as_sf(ele,
                coords = c("Longitude", "Latitude"),
                crs = 4326)
     prj_dd <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
 
     # get_elev_point calculates the altitude
     elevate <-
-      get_elev_point(ele,
+      elevatr::get_elev_point(ele,
                      unit = "meters",
                      prj = prj_dd,
                      src = src)

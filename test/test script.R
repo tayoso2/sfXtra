@@ -5,6 +5,10 @@ devtools::install_github("jmt2080ad/polylineSplitter")
 # install from git ---------------------------------------------------------
 devtools::install_github("tayoso2/sfXtra")
 
+
+
+# IF YOU HAVE RUN THE install.r SCRIPT, start from the below --------------
+
 # load the libraries -------------------------------------------------------
 library(sfXtra)
 

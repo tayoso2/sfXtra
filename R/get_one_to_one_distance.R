@@ -8,8 +8,8 @@
 #' @param splits The number of lists so as to speed up the calculation
 #' @param centroid Default is TRUE. If TRUE, convert x_geom and y_geom to centroids
 #' @return Returns the sf object with additional column, geom_distance_m in meters
-#' @import sf
 #' @importFrom plyr rbind.fill
+#' @import sf
 #' @import lwgeom
 #' @export
 
@@ -19,31 +19,31 @@ get_one_to_one_distance <- function(x, x_geom = "geometry.x", y_geom = "geometry
   y <- x
 
   # assign the active geometry on the lhs and rhs
-  st_geometry(x) <- x_geom
-  st_geometry(y) <- y_geom
+  sf::st_geometry(x) <- x_geom
+  sf::st_geometry(y) <- y_geom
 
   # Transform x CRS to EPSG 4326 if required
-  if (st_crs(x) != 4326) {
+  if (sf::st_crs(x) != 4326) {
     message(paste0(
       "Transforming x coordinate reference system to ESPG: 4326"
     ))
-    x <- st_transform(x, crs = 4326)
+    x <- sf::st_transform(x, crs = 4326)
   }
 
   # Transform y CRS to x CRS if required
-  if (st_crs(x) != st_crs(y)) {
+  if (sf::st_crs(x) != sf::st_crs(y)) {
     message(paste0(
       "Transforming y coordinate reference system to ESPG: ",
-      st_crs(x)$epsg
+      sf::st_crs(x)$epsg
     ))
-    y <- st_transform(y, st_crs(x))
+    y <- sf::st_transform(y, sf::st_crs(x))
   }
 
   # Transform x_geom and y_geom to centroid
   if (isTRUE(centroid)) {
     message("Converting x_geom and y_geom to centroid")
-    x <- st_centroid(x)
-    y <- st_centroid(y)
+    x <- sf::st_centroid(x)
+    y <- sf::st_centroid(y)
   } else{
     message("Convert to centroid for faster processing")
   }
@@ -67,7 +67,7 @@ get_one_to_one_distance <- function(x, x_geom = "geometry.x", y_geom = "geometry
     y_1 <- list_y[[i]]
     for (j in 1:nrow(list_x[[i]])) {
       # calculate the distance
-      x_1$geom_distance_m[[j]] <- as.numeric(lwgeom::st_geod_distance(x_1[j, x_geom], y_1[j, y_geom]))
+      x_1$geom_distance_m[j] <- as.numeric(lwgeom::st_geod_distance(x_1[j, x_geom], y_1[j, y_geom]))
     }
     if (i == 1) {
       output_final <- x_1

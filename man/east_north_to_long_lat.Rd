@@ -2,7 +2,7 @@
 % Please edit documentation in R/convert_coordinates.R
 \name{east_north_to_long_lat}
 \alias{east_north_to_long_lat}
-\title{Load a list consisting easting and northing}
+\title{Convert easting and northing to longitude and latitude.}
 \usage{
 east_north_to_long_lat(easting, northing, crs = 27700)
 }

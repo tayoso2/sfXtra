@@ -14,15 +14,15 @@ License: Open-source license
 Encoding: UTF-8
 LazyData: true
 Imports:
-    dplyr,
 	plyr,
+    dplyr,
     elevatr,
     magrittr,
+	lwgeom,
     units,
     sp,
     sf,
     rgdal,
     devtools
 Suggests: polylineSplitter
-Additional_repositories: https://github.com/JMT2080AD/polylineSplitter
 RoxygenNote: 7.1.1

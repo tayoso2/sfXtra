@@ -1,5 +1,5 @@
 
-#' Load a list consisting easting and northing
+#' Convert easting and northing to longitude and latitude.
 #'
 #' This function loads a list or dataframe containing easting and northing and outputs longitude and latitude using the provided crs.
 #' @param easting Easting is the eastward-measured distance (or the x-coordinate)
@@ -9,6 +9,7 @@
 #' @import sp
 #' @import rgdal
 #' @export
+
 east_north_to_long_lat <- function(easting, northing, crs = 27700) {
   wgs84 = paste0("+init=epsg:",crs)
   proj =  "+init=epsg:4326"
@@ -24,7 +25,7 @@ east_north_to_long_lat <- function(easting, northing, crs = 27700) {
 
 
 
-#' Load a list consisting long (longitude) and lat (latitude)
+#' Convert long (longitude) and lat (latitude) to easting and northing
 #'
 #' This function loads a list or dataframe containing easting and northing and outputs longitude and latitude using the provided crs.
 #' @param long numerical string(s) consisting geographic coordinate specific to the east-west
@@ -34,7 +35,9 @@ east_north_to_long_lat <- function(easting, northing, crs = 27700) {
 #' @param crs Default is 27700 for United Kingdom
 #' @return Returns a dataframe with longitude and latitude converted to easting and northing
 #' @import sp
+#' @import rgdal
 #' @export
+
 long_lat_to_east_north <- function(long, lat, crs= 27700) {
   wgs84 =  "+init=epsg:4326"
   proj =  paste0("+init=epsg:",crs)

@@ -15,17 +15,18 @@
 #' @import magrittr
 #' @export
 
+
 break_one_line <- function(line, geom = "geometry", crs = 27700) {
   # cast the geometry from multiline to points
-  points <- st_cast(st_geometry(line), "POINT")
+  points <- sf::st_cast(sf::st_geometry(line), "POINT")
 
   # pair the points and cast back to linestrings
   n <- length(points) - 1
   x <- lapply(
     X = 1:n,
     FUN = function(p) {
-      x_pair <- st_combine(c(points[p], points[p + 1]))
-      x <- st_cast(x_pair, "LINESTRING")
+      x_pair <- sf::st_combine(c(points[p], points[p + 1]))
+      x <- sf::st_cast(x_pair, "LINESTRING")
     }
   )
   for (i in 1:length(x)) {
@@ -38,11 +39,11 @@ break_one_line <- function(line, geom = "geometry", crs = 27700) {
 
   # transform to sf dataframe and set crs
   x2 <- as.data.frame(x2)
-  x2 <- st_sf(x2)
-  x2 <- st_set_crs(x2, crs)
+  x2 <- sf::st_sf(x2)
+  x2 <- sf::st_set_crs(x2, crs)
 
   # add on the length
-  x2$length_m <- st_length(x2$geometry)
+  x2$length_m <- sf::st_length(x2$geometry)
   x2$length_m <- round(as.numeric(x2$length_m), 4)
 
   # remove old geometries
@@ -62,6 +63,7 @@ break_one_line <- function(line, geom = "geometry", crs = 27700) {
 #' @return Returns the same sf object with the addition of line geometries gotten from the broken larger linestrings
 #' @importFrom plyr rbind.fill
 #' @export
+
 
 break_to_smallest <- function(lines, messaging = 5) {
   # iterate through all rows in the sf object using break_one_line()
@@ -94,6 +96,7 @@ break_to_smallest <- function(lines, messaging = 5) {
 #' @import sf
 #' @export
 
+
 split_lines_using_rules <-
   function(x,
            max_length = 20,
@@ -102,7 +105,7 @@ split_lines_using_rules <-
     # nullify the active geometry
     if ("sf" %in% class(x)) {
       message(paste0("Nullifying the active geometry"))
-      st_geometry(x) <- NULL
+      sf::st_geometry(x) <- NULL
     }
     for (i in 1:nrow(x)) {
       # message for progress
@@ -134,13 +137,14 @@ split_lines_using_rules <-
 #' @import sf
 #' @export
 
+
 fix_xymax <- function(x) {
   # Transform x to an sf object if necessary
   if ("sf" %in% class(x)) {
     message(paste0("You have loaded an sf object"))
   }
   else{
-    x <- st_sf(x)
+    x <- sf::st_sf(x)
     message(paste0("Your input data has been transformed to an sf dataframe"))
   }
 
@@ -170,10 +174,10 @@ fix_xymax <- function(x) {
 #' @return Returns a dataframe with the addition of "new_length" column
 #' @import dplyr
 #' @import magrittr
-#' @import polylineSplitter
 #' @import sp
 #' @import sf
 #' @export
+
 
 split_my_linestrings <-
   function(x,
@@ -200,7 +204,7 @@ split_my_linestrings <-
         CRS(
           "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84"
         )
-      x1_splitted_sf <- st_as_sf(as(x1_splitted, "SpatialLines"))
+      x1_splitted_sf <- sf::st_as_sf(as(x1_splitted, "SpatialLines"))
 
       # add on the unique id
       x1_splitted_sf[, uid] <- x[i, uid]
@@ -208,7 +212,7 @@ split_my_linestrings <-
       # ensure the crs is unchanged
       crs_27700 <- sp::CRS(SRS_string = "EPSG:27700")
       x1_splitted_sf <-
-        st_transform(x1_splitted_sf, crs = crs_27700)
+        sf::st_transform(x1_splitted_sf, crs = crs_27700)
 
       if (i == 1) {
         out <- x1_splitted_sf
@@ -219,8 +223,8 @@ split_my_linestrings <-
 
     # add a length column, exclude really small lengths
     out <- out %>%
-      st_sf() %>% st_set_crs(27700) %>%
-      dplyr::mutate(new_length = st_length(.),
+      sf::st_sf() %>% sf::st_set_crs(27700) %>%
+      dplyr::mutate(new_length = sf::st_length(.),
                     new_length = as.numeric(new_length)) %>%
       dplyr::filter(new_length > 0.01)
 

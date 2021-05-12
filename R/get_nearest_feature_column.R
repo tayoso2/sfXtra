@@ -11,7 +11,7 @@
 #' @export
 
 get_nearest_feature_column <- function(x, y, col = "column_1") {
-  res <- y[st_nearest_feature(x, y), col]
+  res <- y[sf::st_nearest_feature(x, y), col]
   x[, col] <- res[, col]
   return(x)
 }
