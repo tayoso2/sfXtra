@@ -1,6 +1,7 @@
 
 
-#' Load an sf object with l feature consisting of a multilinestring geometry. Used with break_to_smallest()
+
+#' Load an sf object with l feature consisting of a multilinestring geometry. This function is used in break_to_smallest()
 #'
 #' This function loads a sf object with 1 feature, the active geometry "multilinestring"
 #' and breaks each of these lines to many points that make up the lines and stitches them back up
@@ -55,10 +56,10 @@ break_one_line <- function(line, geom = "geometry", crs = 27700) {
 
 #' Load an sf object with linestring geometry.
 #'
-#' This function loads an sf object with the active geometry "linestring" and breaks each of these multilines to many lines.
+#' This function loads an sf object with the active geometry "linestring" and breaks each of these larger lines to many lines.
 #' @param lines An sf object or sf dataframe
 #' @param messaging Progress indicator displaying in Percentages.
-#' @return Returns the same sf object with the addition of line geometries gotten from the broken multilinestrings
+#' @return Returns the same sf object with the addition of line geometries gotten from the broken larger linestrings
 #' @import plyr
 #' @export
 
