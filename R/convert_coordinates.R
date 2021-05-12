@@ -8,7 +8,7 @@
 #' @return Returns a dataframe with easting and northing converted to longitude and latitude
 #' @import sp
 #' @import rgdal
-#' @export
+
 east_north_to_long_lat <- function(easting, northing, crs = 27700) {
   wgs84 = paste0("+init=epsg:",crs)
   proj =  "+init=epsg:4326"
@@ -34,7 +34,7 @@ east_north_to_long_lat <- function(easting, northing, crs = 27700) {
 #' @param crs Default is 27700 for United Kingdom
 #' @return Returns a dataframe with longitude and latitude converted to easting and northing
 #' @import sp
-#' @export
+
 long_lat_to_east_north <- function(long, lat, crs= 27700) {
   wgs84 =  "+init=epsg:4326"
   proj =  paste0("+init=epsg:",crs)

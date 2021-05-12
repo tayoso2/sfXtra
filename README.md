@@ -14,7 +14,7 @@ There are new functions as well added to this package which have not been summar
 
 There are a variety of methods for installing packages directly from github. You may want to research these and find the most appropriate for you. 
 
-You can try running the following code from within R Studio:
+You can try running the following code from within R Studio or running "install.R"
 
 ```R
 # install devtools libraries from cran

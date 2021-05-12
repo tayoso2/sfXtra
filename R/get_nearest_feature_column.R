@@ -8,10 +8,9 @@
 #' @param col The column(s) to add from y to x. Default is "column_1"
 #' @return Returns the same sf object in x with the addition of the column(s) from y
 #' @import sf
-#' @export
 
 get_nearest_feature_column <- function(x, y, col = "column_1") {
-  res <- y[st_nearest_feature(x, y), col]
+  res <- y[sf::st_nearest_feature(x, y), col]
   x[, col] <- res[, col]
   return(x)
 }

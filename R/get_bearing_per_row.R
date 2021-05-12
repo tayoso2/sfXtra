@@ -10,7 +10,6 @@
 #' @return Returns the same R object with the addition of "splits_in_meters" columns
 #' @import magrittr
 #' @import dplyr
-#' @export
 
 get_bearing_per_row <- function(df = df) {
   df_2 <- df %>%
